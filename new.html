@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sticky Test</title>
+  <style>
+    body {
+      .slider-container {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  margin: auto;
+  overflow: hidden;
+}
+
+.slider {
+  display: inline-block;
+  width: 200%;
+  transition: transform 0.5s ease;
+}
+
+.slide {
+  width: 50%;
+  float: left;
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.left-arrow {
+  left: 10px;
+}
+
+.right-arrow {
+  right: 10px;
+}
+
+.pagination {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.dot {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  margin: 5px;
+  background-color: gray;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.dot.active {
+  background-color: black;
+}
+
+
+    }
+  </style>
+</head>
+<body>
+  <div class="slider-container">
+    <div class="slider">
+      <img src="HP2_Cozy_Desktop_20240924.png" alt="Image 1" class="slide">
+      <img src="slider-img-2.png" alt="Image 2" class="slide">
+    </div>
+    <button id="prevBtn" class="arrow left-arrow">&lt;</button>
+    <button id="nextBtn" class="arrow right-arrow">&gt;</button>
+    <div class="pagination">
+      <span class="dot" data-index="0"></span>
+      <span class="dot" data-index="1"></span>
+    </div>
+  </div>
+  
+  </div>
+
+  <script>
+let currentIndex = 0;
+
+document.getElementById('prevBtn').addEventListener('click', () => {
+  slideTo(currentIndex - 1);
+});
+
+document.getElementById('nextBtn').addEventListener('click', () => {
+  slideTo(currentIndex + 1);
+});
+
+document.querySelectorAll('.dot').forEach(dot => {
+  dot.addEventListener('click', (e) => {
+    slideTo(parseInt(e.target.dataset.index));
+  });
+});
+
+function slideTo(index) {
+  const slider = document.querySelector('.slider');
+  const dots = document.querySelectorAll('.dot');
+  
+  currentIndex = (index + 2) % 2; // Ensure the index stays in range (0 or 1)
+  slider.style.transform = `translateX(${-currentIndex * 50}%)`;
+
+  // Update active dot
+  dots.forEach(dot => dot.classList.remove('active'));
+  dots[currentIndex].classList.add('active');
+}
+
+// Initialize first dot as active
+document.querySelectorAll('.dot')[0].classList.add('active');
+
+  </script>
+  
+</body>
+</html>

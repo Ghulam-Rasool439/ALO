@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Showcase</title>
+    <style>
+        /* Basic styles for demonstration */
+        .product-sec-6 {
+            display: flex;
+            align-items: center;
+        }
+
+        .product-6 {
+            position: relative;
+            margin-right: 20px;
+        }
+
+        .default-img, .hover-img {
+            width: 200px; /* Set a width as needed */
+            height: auto;
+            display: block;
+        }
+
+        .hover-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: none; /* Initially hidden */
+        }
+
+        .product-6:hover .hover-img {
+            display: block; /* Show on hover */
+        }
+
+        .cir-box {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: gray;
+            margin: 5px;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        .product-details {
+            display: flex;
+            flex-direction: column;
+        }
+    </style>
+</head>
+<body>
+
+<div class="product-sec-6">
+    <div class="product-6">
+        <img id="product-image" src="s-m (2).jpg" alt="Product Image" class="default-img">
+        <img src="s-m (1).jpg" alt="Hover Image" class="hover-img" id="hover-img">
+        <div class="nini-box">
+            <p>Products</p>
+        </div>
+    </div>
+    <div class="product-details">
+        <p id="product-name">Product Name</p>
+        <p>Shoes</p>
+        <p id="product-price">Price</p>
+        <div class="product-set">
+            <div class="cir-box" data-index="0"></div>
+            <div class="cir-box cer" data-index="1"></div>
+            <div class="cir-box cer-black" data-index="2"></div>
+            <div class="cir-box cer-brown" data-index="3"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Array to store product data
+    const products = [
+        {
+            image: "s-m (2).jpg",
+            hoverImage: "s-m (1).jpg",
+            name: "Product 1",
+            price: "234.3 rs"
+        },
+        {
+            image: "cap-m (2).jpg",
+            hoverImage: "cap-m (1).jpg",
+            name: "Product 2",
+            price: "300.0 rs"
+        },
+        {
+            image: "bag-m (1).jpg",
+            hoverImage: "bag-m (2).jpg",
+            name: "Product 3",
+            price: "150.0 rs"
+        },
+        {
+            image: "black-s-m (2).jpg",
+            hoverImage: "black-s-m (1).jpg",
+            name: "Product 4",
+            price: "450.0 rs"
+        }
+    ];
+
+    // Function to update product data
+    function updateProductData(index) {
+        const product = products[index];
+        document.getElementById("product-image").src = product.image;
+        document.getElementById("hover-img").src = product.hoverImage;
+        document.getElementById("product-name").innerText = product.name;
+        document.getElementById("product-price").innerText = product.price;
+    }
+
+    // Add event listeners to cir-box elements
+    document.querySelectorAll('.cir-box').forEach((box, index) => {
+        box.addEventListener('click', () => {
+            updateProductData(index);
+        });
+    });
+</script>
+
+</body>
+</html>

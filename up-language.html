@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Language Menu</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        .language-menu {
+            position: relative;
+            display: inline-block;
+        }
+
+        #language-button {
+            background-color: black;
+            color: white;
+            border: 1px solid white;
+            padding: 10px 20px;
+            cursor: pointer;
+            width: 200px; /* Set button width */
+            text-align: left;
+            position: relative;
+        }
+
+        #arrow {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        #language-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            position: absolute;
+            bottom: 100%; /* Display languages above the button */
+            left: 0;
+            background-color: black;
+            color: white;
+            border: 1px solid white;
+            width: 100%; /* Match button width */
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.15s ease-in, opacity 0.15s ease-in;
+            opacity: 0;
+        }
+
+        #language-list.open {
+            max-height: 200px; /* Set maximum height based on the list items */
+            opacity: 1;
+        }
+
+        #language-list li {
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        #language-list li:hover {
+            background-color: grey;
+        }
+
+        .selected {
+            text-decoration: underline; /* Underline selected language */
+        }
+    </style>
+</head>
+<body>
+    <div class="language-menu">
+        <button id="language-button">
+            English <i id="arrow" class="ri-arrow-down-s-line"></i>
+        </button>
+        <ul id="language-list">
+            <li class="selected">English</li>
+            <li>Spanish</li>
+        </ul>
+    </div>
+
+    <script>
+        const languageList = document.getElementById('language-list');
+        const arrow = document.getElementById('arrow');
+        const languageItems = languageList.getElementsByTagName('li');
+
+        // Set default selected language
+        document.getElementById('language-button').firstChild.nodeValue = 'English ';
+
+        // Highlight the selected language
+        for (let i = 0; i < languageItems.length; i++) {
+            languageItems[i].addEventListener('click', function() {
+                // Remove 'selected' class from all items
+                for (let j = 0; j < languageItems.length; j++) {
+                    languageItems[j].classList.remove('selected');
+                }
+                // Add 'selected' class to the clicked item
+                this.classList.add('selected');
+                // Set button text to the selected language
+                document.getElementById('language-button').firstChild.nodeValue = this.textContent + ' ';
+            });
+        }
+
+        document.getElementById('language-button').addEventListener('click', function() {
+            if (languageList.classList.contains('open')) {
+                languageList.classList.remove('open');
+                arrow.className = 'ri-arrow-down-s-line'; // Down arrow icon
+            } else {
+                languageList.classList.add('open');
+                arrow.className = 'ri-arrow-up-s-line'; // Up arrow icon
+            }
+        });
+    </script>
+</body>
+</html>
